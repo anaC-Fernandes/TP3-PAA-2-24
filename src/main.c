@@ -27,7 +27,7 @@ int main() {
 
     long tamPadrao; 
 
-    printf("\nO que deseja procurar?\n");
+    printf("\n\n\n\nO que deseja procurar?\n");
     scanf("%s", padrao);
     tamPadrao = strlen(padrao);
     converteMaiuscula(padrao);

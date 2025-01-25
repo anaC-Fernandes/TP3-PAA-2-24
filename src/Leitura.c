@@ -13,29 +13,29 @@ char *LeituraTexto(const char *fileName) {
         return NULL;
     }
 
-    // Mover o cursor para o final do arquivo para determinar o tamanho do arquivo
+    // Mover o cursor para o final do arquivo para determinar o tamanho
     fseek(file, 0, SEEK_END);
-    long fileSize = ftell(file); // Tamanho do arquivo
-    rewind(file); // Volta para o início do arquivo
+    long fileSize = ftell(file);
+    if (fileSize < 0) {
+        perror("Erro ao determinar o tamanho do arquivo");
+        fclose(file);
+        return NULL;
+    }
 
-    // Alocar memória para o buffer com tamanho suficiente
-    char *buffer = (char *)malloc((fileSize + 1) * sizeof(char)); // +1 para o '\0'
+    rewind(file);
+
+    // Alocar memória
+    char *buffer = (char *)malloc((fileSize + 1) * sizeof(char));
     if (buffer == NULL) {
         perror("Erro ao alocar memória");
         fclose(file);
         return NULL;
     }
 
-    // Ler o conteúdo do arquivo para o buffer
+    // Ler o conteúdo do arquivo
     size_t bytesRead = fread(buffer, 1, fileSize, file);
-    if (bytesRead < fileSize) {
-        perror("Erro ao ler o arquivo");
-        free(buffer);
-        fclose(file);
-        return NULL;
-    }
+    buffer[bytesRead] = '\0'; // Garante que o buffer seja uma string válida
 
-    buffer[fileSize] = '\0'; // Garantir que o buffer seja uma string válida
     fclose(file);
 
     return buffer;
