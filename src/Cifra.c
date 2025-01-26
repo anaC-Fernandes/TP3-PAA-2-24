@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h>
 
-bool caractere_especial(char c){
+bool caractere_especial(char c){ //Funcao que testa se o caractere é especial ou não
     if(c == '.' || c == ',' || c == ' ' || c == ';' || c == '/' || c == ':' \
     || c == '-' || c == '!' || c == '?' || c == '(' || c == ')'){
         return true;
@@ -14,7 +14,7 @@ bool caractere_especial(char c){
     }
 }
 
-int alfabeto(char c){
+int alfabeto(char c){ //Funcao que retorna a posicao da letra no alfabeto
     int temp;
     switch (c){
         case 'a':
@@ -128,15 +128,15 @@ int alfabeto(char c){
     return temp;
 }
 
-int criptografa(char* texto, int x){
+int criptografa(char* texto, int x){ //Função que criptografa o texto de acordo com a chave recebida
     int tam = strlen(texto);
     FILE* saida = fopen("criptografado.txt", "w");
 
     for(int i=0; i<tam; i++){
-        if(caractere_especial(texto[i])){
+        if(caractere_especial(texto[i])){ //Caso seja especial escrever o mesmo caractere
             putc(texto[i], saida);
         }else{
-            if(alfabeto(texto[i]) + x > 26){
+            if(alfabeto(texto[i]) + x > 26){ //Caso a chave tenha que voltar ao inicio do alfabeto passando do z
                 if(((alfabeto(texto[i]) + x) % 26) == 0){
                     putc(texto[i] - alfabeto(texto[i]) + 26, saida); //Caso caractere seja z
                 }else{
@@ -152,17 +152,16 @@ int criptografa(char* texto, int x){
     return 0;
 }
 
-int descriptografa(char* texto, int x){
+int descriptografa(char* texto, int x){ //Função que descriptografa o texto de acordo com a chave recebida
     int tam = strlen(texto);
     FILE* saida = fopen("descriptografado.txt", "w");
 
     for(int i=0; i<tam; i++){
-        if(texto[i] == '.' || texto[i] == ',' || texto[i] == '/' || texto[i] == ' '){
+        if(caractere_especial(texto[i])){ //Caso seja especial escrever o mesmo caractere
             putc(texto[i], saida);
         }else{
-            if(alfabeto(texto[i]) - x < 1){
+            if(alfabeto(texto[i]) - x < 1){ //Caso a chave tenha que voltar ao final do alfabeto passando do a
                 putc(texto[i] - alfabeto(texto[i]) + 26 - abs((alfabeto(texto[i]) - x) % 26), saida);
-                //printf("\nC: %c A: %d %d",texto[i], alfabeto(texto[i]) - x, abs((alfabeto(texto[i]) - x)%26));
             }else{
                 putc(texto[i] - x, saida);
             }
@@ -177,11 +176,11 @@ int chave_aleatoria(char* texto) {
     int caracteres = 0;
     float rec[26] = {0};
     int chave = 0;
-    float melhor_correspondencia = 1000; // Inicializa com um valor grande
+    float melhor_correspondencia = 1000;
     float soma_diferenca;
     int indice;
 
-    float tabela[26] = {
+    float tabela[26] = { //Tabela de frequencias da lingua portuguesa
         0.1463, 0.0104, 0.0388, 0.0499, 0.1257, 0.0102, 0.0130, 0.0128, 0.0618, 0.0040,
         0.0002, 0.0278, 0.0474, 0.0505, 0.1073, 0.0252, 0.0120, 0.0653, 0.0781, 0.0434,
         0.0463, 0.0167, 0.0001, 0.0021, 0.0001, 0.0047
@@ -198,7 +197,7 @@ int chave_aleatoria(char* texto) {
         rec[i] /= caracteres;
     }
     
-    printf("TABELA FREQUENCIAS:\n");
+    printf("TABELA FREQUENCIAS:\n"); //Imprime as frequencias no texto criptografado
     for (int i = 0; i < 13; i++){
         printf("Letra: %c Frequencia: %.2f | Letra: %c Frequencia: %.2f\n", i+65, rec[i]*100, i+78, rec[i+13]*100);
     }
