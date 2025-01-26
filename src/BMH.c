@@ -4,6 +4,7 @@
 
 void bmh(char texto[], long tamTexto, char padrao[], long tamPadrao) { 
     
+    int quantPadrao = 0;
     if (tamPadrao > tamTexto) {
         printf("O padrão é maior que o texto. Não há casamento possível.\n");
         return;
@@ -36,6 +37,7 @@ void bmh(char texto[], long tamTexto, char padrao[], long tamPadrao) {
         if (j < 0) { 
             //Caso tenha percorrido todo o padrao e tenha casado todas
             //Entao j sera menor que 0
+            quantPadrao++;
             printf("Casamento na posicao :  %d\n", k + 1);
         }
         //Caso tenha encontrado uma colisao
@@ -44,6 +46,7 @@ void bmh(char texto[], long tamTexto, char padrao[], long tamPadrao) {
         //Reiniciando as comparacoes 
         i = i + tabelaDeslocamento[(int)texto[i]]; 
     }
+    printf("\nO padrao foi encontrado %d vezes\n", quantPadrao);
 }
 
 void converteMaiuscula(char* texto){
