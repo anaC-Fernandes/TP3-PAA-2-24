@@ -22,6 +22,8 @@ int main(){
     //char texto[] = "AABCACCACBAC"; 
     char* padrao = (char*)malloc(250 * sizeof(char)); 
 
+    long tamTexto;
+
     //strcpy(nomeArquivo, "../lib/texto.txt");
     //char *texto = LeituraTexto(nomeArquivo);
     //printf("%s", texto);
@@ -42,21 +44,29 @@ int main(){
                 printf("\nDigite o nome do arquivo a ser lido: ");
                 scanf("%s", nomeArquivo);
 
+                // Desloca o conteúdo de nomeArquivo para a direita para dar espaço ao prefixo
+                memmove(nomeArquivo + 7, nomeArquivo, strlen(nomeArquivo) + 1);
+
+                // Insere o prefixo "../lib/" no início de nomeArquivo
+                memcpy(nomeArquivo, "../lib/", 7);
+
+
                 texto = LeituraTexto(nomeArquivo);
                 break;
             case 2:
-                long tamTexto = strlen(texto);
+                tamTexto = strlen(texto);
                 converteMaiuscula(texto);
 
                 long tamPadrao; 
 
-                printf("\n\n\n\nO que deseja procurar?\n");
+                printf("    ------ BMH -----\n");
+                printf("O que deseja procurar?\n");
                 scanf("%s", padrao);
                 tamPadrao = strlen(padrao);
                 converteMaiuscula(padrao);
 
 
-                printf("\nCom Boyer-Moore:\n");
+                printf("\nCom Boyer-Moore-Horspool:\n");
                 //Inicio da contagem
                 inicio = clock();
 
@@ -66,7 +76,7 @@ int main(){
 
                 //Para achar o tempo gasto em segundos, dividimos o intervalor por clocks por segundos
                 tempo_gasto = ((double) (final - inicio)) / CLOCKS_PER_SEC;
-                printf("Tempo gasto: %f segundos\n", tempo_gasto);
+                printf("\n\nTempo gasto: %f segundos\n", tempo_gasto);
                 
                 int seed;
                 seed = time(NULL);
