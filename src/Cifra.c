@@ -130,7 +130,7 @@ int alfabeto(char c){ //Funcao que retorna a posicao da letra no alfabeto
 
 int criptografa(char* texto, int x){ //Função que criptografa o texto de acordo com a chave recebida
     int tam = strlen(texto);
-    FILE* saida = fopen("criptografado.txt", "w");
+    FILE* saida = fopen("../lib/criptografado.txt", "w");
 
     for(int i=0; i<tam; i++){
         if(caractere_especial(texto[i])){ //Caso seja especial escrever o mesmo caractere
@@ -154,7 +154,7 @@ int criptografa(char* texto, int x){ //Função que criptografa o texto de acord
 
 int descriptografa(char* texto, int x){ //Função que descriptografa o texto de acordo com a chave recebida
     int tam = strlen(texto);
-    FILE* saida = fopen("descriptografado.txt", "w");
+    FILE* saida = fopen("../lib/descriptografado.txt", "w");
 
     for(int i=0; i<tam; i++){
         if(caractere_especial(texto[i])){ //Caso seja especial escrever o mesmo caractere

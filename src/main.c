@@ -110,7 +110,7 @@ int main(){
                     }else if(op_cifra == 3){
                         chave = rand()%26;
                         criptografa(texto, chave);
-                        texto = LeituraTexto("criptografado.txt");
+                        texto = LeituraTexto("../lib/criptografado.txt");
                         chave_aleatoria(texto);
                         printf("Arquivo de entrada para utilizar a chave: %s\n", nomeArquivo);
                         printf("Arquivo utilizado para adivinhar chave: criptografado.txt\n");
