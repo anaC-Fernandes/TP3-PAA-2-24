@@ -5,4 +5,7 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(TP3 main.c
         Leitura.c
-        Leitura.h)
+        Leitura.h
+        BMH.c
+        Cifra.c
+        KMP.c)

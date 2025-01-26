@@ -7,6 +7,7 @@
 #include "Leitura.c"
 #include "Cifra.c"
 #include "BMH.c"
+#include "KMP.c"
 
 int main(){
     int opcao;
@@ -34,7 +35,7 @@ int main(){
         printf("\n------ MENU -----\n");
         printf("1- Carregar aquivo.\n");
         printf("2- Boyer-Moore-Horspool.\n");
-        printf("3- Casamento de padroes 2.\n");
+        printf("3- Knuth-Morris-Pratt.\n");
         printf("4- Cifra de deslocamento.\n");
         printf("5- Sair\n");
 
@@ -83,6 +84,26 @@ int main(){
                 srand(seed);
                 break;
             case 3:
+
+                printf("    ------ KMP -----\n");
+                printf("O que deseja procurar?\n");
+                scanf("%s", padrao);
+                printf("\nCom Knuth-Morris-Pratt:\n");
+                
+                inicio = clock();
+                int ocorrencias = 0;
+                int* indices = kmp_search(texto,padrao,&ocorrencias);
+                
+                printf("O padrao foi encontrado %d vezes\n",ocorrencias);
+                for(int i = 0; i<ocorrencias;i++){
+                    printf("O padrao foi encontrado no indice %d\n",indices[i]);
+                }
+                free(indices);
+                final = clock();
+
+                tempo_gasto = ((double) (final - inicio)) / CLOCKS_PER_SEC;
+                printf("\n\nTempo gasto: %f segundos\n", tempo_gasto);
+
                 break;
             case 4:
                 if(texto != NULL){
